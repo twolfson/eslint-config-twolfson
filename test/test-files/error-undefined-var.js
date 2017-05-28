@@ -5,3 +5,4 @@ exports.expected = /'iWasNeverDeclared' is not defined/i;
 function main() {
   iWasNeverDeclared;
 }
+void main();
