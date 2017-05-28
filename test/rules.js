@@ -51,7 +51,9 @@ errorFiles.forEach(unmatchedTestFiles.delete.bind(unmatchedTestFiles));
 offFiles.forEach(unmatchedTestFiles.delete.bind(unmatchedTestFiles));
 warnFiles.forEach(unmatchedTestFiles.delete.bind(unmatchedTestFiles));
 unmatchedTestFiles = Array.from(unmatchedTestFiles);
-assert.strictEqual(unmatchedTestFiles.length, 0, 'Unmatched test files found: ' + JSON.stringify(unmatchedTestFiles));
+assert.strictEqual(unmatchedTestFiles.length, 0,
+  'Unmatched test files found: ' + JSON.stringify(unmatchedTestFiles) + '. ' +
+  'Verify they are prefixed with "error-", "off-", or "warn-"');
 
 // Start our tests
 errorFiles.forEach(function checkErrorFile (_filepath) {
