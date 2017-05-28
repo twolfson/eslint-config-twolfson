@@ -63,6 +63,7 @@ errorFiles.forEach(function checkErrorFile (_filepath) {
       testUtils.lint(filepath);
 
       it('receives its expected error', function () {
+        // eslint-disable-next-line global-require
         var expected = require(filepath).expected; assert(expected);
         expect(this.result.errorCount).to.be.at.least(1);
         expect(this.result.warningCount).to.equal(0, 'Messages encountered: "' + this.messageStr + '"');
@@ -97,6 +98,7 @@ warnFiles.forEach(function checkWarnFile (_filepath) {
       });
 
       it('receives its expected warning', function () {
+        // eslint-disable-next-line global-require
         var expected = require(filepath).expected; assert(expected);
         expect(this.result.warningCount).to.be.at.least(1);
         expect(this.messageStr).to.match(expected);
