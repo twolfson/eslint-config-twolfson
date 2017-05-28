@@ -65,7 +65,7 @@ errorFiles.forEach(function checkErrorFile (_filepath) {
       it('receives its expected error', function () {
         var expected = require(filepath).expected; assert(expected);
         expect(this.result.errorCount).to.be.at.least(1);
-        expect(this.result.warningCount).to.equal(0);
+        expect(this.result.warningCount).to.equal(0, 'Messages encountered: "' + this.messageStr + '"');
         expect(this.messageStr).to.match(expected);
       });
     });
@@ -79,8 +79,8 @@ offFiles.forEach(function checkOffFile (_filepath) {
       testUtils.lint(filepath);
 
       it('has no errors and no warnings', function () {
-        expect(this.result.errorCount).to.equal(0);
-        expect(this.result.warningCount).to.equal(0);
+        expect(this.result.errorCount).to.equal(0, 'Messages encountered: "' + this.messageStr + '"');
+        expect(this.result.warningCount).to.equal(0, 'Messages encountered: ' + this.messageStr + '"');
       });
     });
   });
@@ -93,7 +93,7 @@ warnFiles.forEach(function checkWarnFile (_filepath) {
       testUtils.lint(filepath);
 
       it('has no errors', function () {
-        expect(this.result.errorCount).to.equal(0);
+        expect(this.result.errorCount).to.equal(0, 'Messages encountered: "' + this.messageStr + '"');
       });
 
       it('receives its expected warning', function () {
