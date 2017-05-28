@@ -39,8 +39,22 @@ var testUtils = {
   }
 };
 
+// Resolve our files
+var testFiles = glob.sync('test-files/*.js', {cwd: __dirname});
+var errorFiles = glob.sync('test-files/error-*.js', {cwd: __dirname});
+var offFiles = glob.sync('test-files/off-*.js', {cwd: __dirname});
+var warnFiles = glob.sync('test-files/warn-*.js', {cwd: __dirname});
+
+// Verify we have no unmatched files
+var unmatchedTestFiles = new global.Set(testFiles);
+errorFiles.forEach(unmatchedTestFiles.delete.bind(unmatchedTestFiles));
+offFiles.forEach(unmatchedTestFiles.delete.bind(unmatchedTestFiles));
+warnFiles.forEach(unmatchedTestFiles.delete.bind(unmatchedTestFiles));
+unmatchedTestFiles = Array.from(unmatchedTestFiles);
+assert.strictEqual(unmatchedTestFiles.length, 0, 'Unmatched test files found: ' + JSON.stringify(unmatchedTestFiles));
+
 // Start our tests
-glob.sync('test-files/error-*.js', {cwd: __dirname}).forEach(function checkErrorFile (_filepath) {
+errorFiles.forEach(function checkErrorFile (_filepath) {
   var filepath = path.join(__dirname, _filepath);
   describe('An invalid file "' + _filepath + '"', function () {
     describe('when linted', function () {
@@ -56,7 +70,7 @@ glob.sync('test-files/error-*.js', {cwd: __dirname}).forEach(function checkError
   });
 });
 
-glob.sync('test-files/off-*.js', {cwd: __dirname}).forEach(function checkOffFile (_filepath) {
+offFiles.forEach(function checkOffFile (_filepath) {
   var filepath = path.join(__dirname, _filepath);
   describe('A valid file "' + _filepath + '"', function () {
     describe('when linted', function () {
@@ -70,7 +84,7 @@ glob.sync('test-files/off-*.js', {cwd: __dirname}).forEach(function checkOffFile
   });
 });
 
-glob.sync('test-files/warn-*.js', {cwd: __dirname}).forEach(function checkWarnFile (_filepath) {
+warnFiles.forEach(function checkWarnFile (_filepath) {
   var filepath = path.join(__dirname, _filepath);
   describe('A warning valid file "' + _filepath + '"', function () {
     describe('when linted', function () {
