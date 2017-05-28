@@ -1,4 +1,5 @@
 // Load in dependencies
+var assert = require('assert');
 var expect = require('chai').expect;
 var glob = require('glob');
 var path = require('path');
@@ -39,14 +40,14 @@ var testUtils = {
 };
 
 // Start our tests
-glob.sync('test-files/error-curly-braces.js', {cwd: __dirname}).forEach(function checkErrorFile (_filepath) {
+glob.sync('test-files/error-*.js', {cwd: __dirname}).forEach(function checkErrorFile (_filepath) {
   var filepath = path.join(__dirname, _filepath);
   describe('An invalid file "' + _filepath + '"', function () {
     describe('when linted', function () {
       testUtils.lint(filepath);
 
       it('receives its expected error', function () {
-        var expected = require(filepath).expected;
+        var expected = require(filepath).expected; assert(expected);
         expect(this.result.errorCount).to.be.at.least(1);
         expect(this.result.warningCount).to.equal(0);
         expect(this.messageStr).to.match(expected);
@@ -55,10 +56,9 @@ glob.sync('test-files/error-curly-braces.js', {cwd: __dirname}).forEach(function
   });
 });
 
-// TODO: Enable skipped tests
 glob.sync('test-files/ignore-*.js', {cwd: __dirname}).forEach(function checkIgnoreFile (_filepath) {
   var filepath = path.join(__dirname, _filepath);
-  describe.skip('A valid file "' + _filepath + '"', function () {
+  describe('A valid file "' + _filepath + '"', function () {
     describe('when linted', function () {
       testUtils.lint(filepath);
 
@@ -72,7 +72,7 @@ glob.sync('test-files/ignore-*.js', {cwd: __dirname}).forEach(function checkIgno
 
 glob.sync('test-files/warn-*.js', {cwd: __dirname}).forEach(function checkWarnFile (_filepath) {
   var filepath = path.join(__dirname, _filepath);
-  describe.skip('A warning valid file "' + _filepath + '"', function () {
+  describe('A warning valid file "' + _filepath + '"', function () {
     describe('when linted', function () {
       testUtils.lint(filepath);
 
@@ -81,9 +81,9 @@ glob.sync('test-files/warn-*.js', {cwd: __dirname}).forEach(function checkWarnFi
       });
 
       it('receives its expected warning', function () {
-        // TODO: Add expected check
+        var expected = require(filepath).expected; assert(expected);
         expect(this.result.warningCount).to.be.at.least(1);
-        expect(false).to.equal(true);
+        expect(this.messageStr).to.match(expected);
       });
     });
   });
