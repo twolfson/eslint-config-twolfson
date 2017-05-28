@@ -1,6 +1,11 @@
 # eslint-config-twolfson [![Build status](https://travis-ci.org/twolfson/eslint-config-twolfson.svg?branch=master)](https://travis-ci.org/twolfson/eslint-config-twolfson)
 
-ESLint configuration for twolfson
+ESLint configuration for [@twolfson][]
+
+This was built to create a common versioned location for [@twolfson's][@twolfson] style choices. For [@twolfson's][@twolfson] JSCS and JSHint preferences, see [twolfson-style][]
+
+[@twolfson]: http://github.com/twolfson/
+[twolfson-style]: http://github.com/twolfson/twolfson-style
 
 ## Getting Started
 Install the module with: `npm install eslint-config-twolfson`
