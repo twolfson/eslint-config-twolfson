@@ -56,7 +56,7 @@ glob.sync('test-files/error-*.js', {cwd: __dirname}).forEach(function checkError
   });
 });
 
-glob.sync('test-files/ignore-*.js', {cwd: __dirname}).forEach(function checkIgnoreFile (_filepath) {
+glob.sync('test-files/off-*.js', {cwd: __dirname}).forEach(function checkOffFile (_filepath) {
   var filepath = path.join(__dirname, _filepath);
   describe('A valid file "' + _filepath + '"', function () {
     describe('when linted', function () {
