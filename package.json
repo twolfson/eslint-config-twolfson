@@ -21,9 +21,9 @@
   },
   "license": "Unlicense",
   "scripts": {
-    "lint": "eslint *.js lib/ test/",
-    "lint-strict": "eslint *.js lib/ test/ --max-warnings 0",
-    "test": "npm run lint && mocha --reporter dot && npm run lint-strict"
+    "precheck": "eslint *.js lib/ test/*.js",
+    "lint": "eslint *.js lib/ test/*.js --max-warnings 0",
+    "test": "npm run precheck && mocha --reporter dot && npm run lint"
   },
   "dependencies": {},
   "devDependencies": {
