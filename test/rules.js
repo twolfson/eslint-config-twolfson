@@ -11,7 +11,7 @@ var eslintConfigFilepath = require.resolve('../');
 // Define test utilities
 var testUtils = {
   lint: function (filepath) {
-    before(function lintFn () {
+    before(function lintFn() {
       // Define our CLI engine
       // http://eslint.org/docs/developer-guide/nodejs-api#executeonfiles
       var cli = new eslint.CLIEngine({
@@ -29,11 +29,11 @@ var testUtils = {
       //    line, column, nodeType: 'Identifier', source: 'exports.exports = ...'}
       var report = cli.executeOnFiles([filepath]);
       this.result = report.results[0];
-      this.messageStr = this.result.messages.map(function extractMessageStr (messageObj) {
+      this.messageStr = this.result.messages.map(function extractMessageStr(messageObj) {
         return messageObj.message;
       }).join('\n');
     });
-    after(function cleanup () {
+    after(function cleanup() {
       delete this.result;
     });
   }
@@ -56,7 +56,7 @@ assert.strictEqual(unmatchedTestFiles.length, 0,
   'Verify they are prefixed with "error-", "off-", or "warn-"');
 
 // Start our tests
-errorFiles.forEach(function checkErrorFile (_filepath) {
+errorFiles.forEach(function checkErrorFile(_filepath) {
   var filepath = path.join(__dirname, _filepath);
   describe('An invalid file "' + _filepath + '"', function () {
     describe('when linted', function () {
@@ -73,7 +73,7 @@ errorFiles.forEach(function checkErrorFile (_filepath) {
   });
 });
 
-offFiles.forEach(function checkOffFile (_filepath) {
+offFiles.forEach(function checkOffFile(_filepath) {
   var filepath = path.join(__dirname, _filepath);
   describe('A valid file "' + _filepath + '"', function () {
     describe('when linted', function () {
@@ -87,7 +87,7 @@ offFiles.forEach(function checkOffFile (_filepath) {
   });
 });
 
-warnFiles.forEach(function checkWarnFile (_filepath) {
+warnFiles.forEach(function checkWarnFile(_filepath) {
   var filepath = path.join(__dirname, _filepath);
   describe('A warning valid file "' + _filepath + '"', function () {
     describe('when linted', function () {

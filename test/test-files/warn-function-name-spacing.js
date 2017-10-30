@@ -10,6 +10,8 @@ void declaration;
 [].forEach(function() {
   // Code goes here
 });
-[].forEach(function namedExpression() {
+// DEV: Historically we used a space after name for inline functions but we're making our style more consistent
+//   due to limited ESLint flexibility and general consistency
+[].forEach(function namedExpression () {
   // Code goes here
 });
