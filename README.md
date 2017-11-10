@@ -8,18 +8,61 @@ This was built to create a common versioned location for [@twolfson's][@twolfson
 [twolfson-style]: http://github.com/twolfson/twolfson-style
 
 ## Getting Started
-Install the module with: `npm install eslint-config-twolfson`
+Install our package along side `eslint` via: `npm install eslint-config-twolfson`
+
+Once it's installed, extend our package via `.eslintrc.js`. We recommend the following setup:
 
 ```js
-var eslintConfigTwolfson = require('eslint-config-twolfson');
-eslintConfigTwolfson(); // 'awesome'
+module.exports = {
+  // Inherit from our package
+  extends: 'eslint-config-twolfson',
+
+  // Configure our environment
+  // http://eslint.org/docs/user-guide/configuring#specifying-environments
+  env: {
+    node: true,
+    mocha: true
+  }
+};
+```
+
+Once it's configured, we can run our linter:
+
+```bash
+eslint directory/to/lint
 ```
 
 ## Documentation
-_(Coming soon)_
+### Preferred setup
+We have the following as our preferred setup for our packages:
 
-## Examples
-_(Coming soon)_
+**.eslintrc.js:**
+
+```js
+module.exports = {
+  // Inherit from our package
+  extends: 'eslint-config-twolfson',
+
+  // Configure our environment
+  // http://eslint.org/docs/user-guide/configuring#specifying-environments
+  env: {
+    node: true,
+    mocha: true
+  }
+};
+```
+
+**package.json:**
+
+```js
+// ...
+"scripts": {
+  "precheck": "eslint directory/to/lint",
+  "lint": "eslint directory/to/lint --max-warnings 0",
+  "test": "npm run precheck && mocha && npm run lint"
+},
+// ...
+```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint via `npm run lint` and test via `npm test`.
